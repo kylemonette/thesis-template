@@ -1,0 +1,3 @@
+ bibtex chapter1
+ bibtex chapter2
+ bibtex chapter3

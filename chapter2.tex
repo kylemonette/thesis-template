@@ -1,0 +1,115 @@
+%% chapter2.tex — Background and Related Work
+
+\chapter{Background and Related Work}
+\label{ch:background}
+
+%% -----------------------------------------------------------------------
+%% 2.1 Related Work
+%% -----------------------------------------------------------------------
+\section{Related Work}
+\label{sec:related}
+
+This chapter reviews prior work relevant to the thesis topic.
+A thorough literature review situates your contribution within the
+existing body of knowledge and justifies your methodological choices.
+
+Each paragraph should synthesise related sources rather than
+summarising individual papers in isolation~\cite{kopka1999guide}.
+Group sources thematically:
+
+\begin{itemize}
+  \item Approach A and its variants~\cite{lamport1994latex}.
+  \item Approach B and its limitations~\cite{knuth1986texbook}.
+  \item Hybrid methods that combine elements of both~\cite{kopka1999guide}.
+\end{itemize}
+
+%% -----------------------------------------------------------------------
+%% 2.2 Figures
+%% -----------------------------------------------------------------------
+\section{Including Figures}
+\label{sec:figures}
+
+Figures are included with the standard \texttt{figure} environment.
+The class automatically adds them to the List of Figures.
+Always include a descriptive caption and a \verb|\label| so the figure
+can be cross-referenced.
+
+Figure~\ref{fig:example} shows a placeholder rectangle that should be
+replaced with your actual figure file (\texttt{.pdf}, \texttt{.png},
+or \texttt{.eps}).
+
+\begin{figure}[htbp]
+  \centering
+  % Replace the \rule with \includegraphics[width=0.8\textwidth]{yourfile}
+  \setlength{\fboxsep}{0pt}
+  \fbox{\rule{0pt}{6cm}\rule{10cm}{0pt}}
+  \caption[Short caption for the List of Figures]{%
+    Longer caption that appears below the figure.
+    The short caption in brackets is what appears in the List of Figures.
+    If only one argument is given it is used in both places.}
+  \label{fig:example}
+\end{figure}
+
+When a figure is wider than the text column, the \texttt{[width=\textbackslash textwidth]}
+option scales it to fit.
+Never let a figure extend into the margin.
+
+%% -----------------------------------------------------------------------
+%% 2.3 Tables
+%% -----------------------------------------------------------------------
+\section{Including Tables}
+\label{sec:tables}
+
+Tables should use the \texttt{booktabs} package for clean horizontal
+rules, as shown in Table~\ref{tab:example}.
+Vertical rules are generally discouraged in professional typesetting.
+
+\begin{table}[htbp]
+  \centering
+  \caption[Short caption for the List of Tables]{%
+    A comparison of example methods.  Replace this with your data.}
+  \label{tab:example}
+  \begin{tabular}{llcc}
+    \toprule
+    Method      & Reference              & Accuracy (\%) & Runtime (s) \\
+    \midrule
+    Approach A  & \cite{lamport1994latex}  & 91.2          & 4.3         \\
+    Approach B  & \cite{knuth1986texbook}  & 88.7          & 2.1         \\
+    Approach C  & \cite{kopka1999guide}    & 93.5          & 8.9         \\
+    \midrule
+    This work   & ---                    & \textbf{95.1} & 5.7         \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The \texttt{[htbp]} placement specifier asks \LaTeX\ to place the float
+\textit{h}ere, at the \textit{t}op of a page, at the \textit{b}ottom,
+or on a separate \textit{p}age of floats, in that order of preference.
+
+%% -----------------------------------------------------------------------
+%% 2.4 Equations
+%% -----------------------------------------------------------------------
+\section{Equations}
+\label{sec:equations}
+
+Inline mathematics is set with dollar signs: $E = mc^2$.
+Displayed equations are set with the \texttt{equation} environment:
+
+\begin{equation}
+  \label{eq:gaussian}
+  f(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right).
+\end{equation}
+
+Equation~\eqref{eq:gaussian} shows a Gaussian probability density
+function with mean $\mu$ and standard deviation $\sigma$.
+For aligned multi-line derivations, use the \texttt{align} environment:
+
+\begin{align}
+  a + b  &= c, \label{eq:line1} \\
+  d \cdot e &= f. \label{eq:line2}
+\end{align}
+
+Equations~\eqref{eq:line1} and~\eqref{eq:line2} illustrate aligned
+equations.
+Equation numbers are set sequentially by the class (or per-chapter
+if the \texttt{nonsequential} option is used).

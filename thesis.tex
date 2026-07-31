@@ -1,0 +1,150 @@
+%% thesis.tex — University of Rhode Island Thesis Template
+%%
+%% -------------------------------------------------------------------------
+%% COMPILE SEQUENCE
+%% -------------------------------------------------------------------------
+%%
+%% STANDARD MODE (oneref — single bibliography at the end):
+%%
+%%   pdflatex thesis
+%%   bibtex thesis
+%%   pdflatex thesis
+%%   pdflatex thesis
+%%
+%% CHAPTER REFERENCE MODE (chapterref — separate bibliography per chapter):
+%%
+%%   Step 1 — run pdflatex once to collect citations:
+%%     pdflatex thesis
+%%
+%%   Step 2 — run the generated script to finish the compile:
+%%     sh genbib.sh
+%%
+%%   That script runs bibtex on each chapter's .aux file and on the
+%%   combined thesisbib.aux, then runs pdflatex twice more.
+%%   You can also open genbib.sh in a text editor to see the exact steps.
+%%
+%%   If genbib.sh does not yet exist (very first run), do Step 1 first.
+%%
+%% -------------------------------------------------------------------------
+%% QUICK DRAFT (skip bibliography machinery while writing):
+%%
+%%   Use the [nobib] option:  \documentclass[nobib,...]{urithesis}
+%%
+%% -------------------------------------------------------------------------
+%%
+%% -------------------------------------------------------------------------
+%% CLASS OPTIONS — choose what applies to your thesis
+%% -------------------------------------------------------------------------
+%%
+%%  Degree:       masters (default) | phd
+%%  Font size:    12pt (default) | 11pt | 10pt
+%%  References:   oneref (default, single list) | chapterref (per-chapter lists)
+%%  Format:       standard (default) | manuscript
+%%  Committee:    3committee (default) | 4committee | 5committee
+%%  Numbering:    sequential (default) | nonsequential
+%%  Page numbers: bottomnum (default) | topnum
+%%  Citations:    numeric (default) | aparefs
+%%  Approval:     hardcopy (default, with sig lines) | electronic
+%%  Bibliography: add [bibliography] to also emit a combined alphabetical
+%%                BIBLIOGRAPHY section at the end (useful with \nocite{*})
+%%
+%% Example for a PhD dissertation with four committee members:
+%%   \documentclass[phd,4committee,topnum]{urithesis}
+
+\documentclass[phd,12pt,3committee,chapterref,manuscript]{urithesis}
+
+% -------------------------------------------------------------------------
+% Packages — add your own here
+% -------------------------------------------------------------------------
+\usepackage{graphicx}        % \includegraphics
+\usepackage{amsmath}         % align, equation*, etc.
+\usepackage{amssymb}         % \mathbb, \mathcal, etc.
+\usepackage{booktabs}        % \toprule, \midrule, \bottomrule in tables
+\usepackage{microtype}       % improved line breaking
+\usepackage[backref=page]{hyperref}
+% NOTE: The following is just an EXAMPLE of how back references can be used. Strictly speaking, this is not 'permitted' in the final thesis submission.
+\hypersetup{hypertexnames = true, colorlinks = true, urlcolor = blue, linkcolor = blue, citecolor = blue}
+\renewcommand*{\backrefsep}{, }
+\renewcommand*{\backreflastsep}{, and~}
+\renewcommand*{\backreftwosep}{ and~}
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{%
+  \!\small\itshape\mbox{%
+    \ifnum#1=1
+      (Cited on page~%
+    \else
+      (Cited on pages~%
+    \fi
+    #2)%
+  }%
+}
+
+% -------------------------------------------------------------------------
+% Thesis metadata — fill in every field
+% -------------------------------------------------------------------------
+
+\title{The Thesis Title}
+
+\author{John Smith}
+
+\dept{Mathematics}
+
+\copyrightyear{\the\year}
+
+% File that holds your BibTeX entries (without the .bib extension).
+% The same file is used for both the per-chapter references and the
+% alphabetical bibliography.
+\reffile{references}
+
+
+% -------------------------------------------------------------------------
+% Preliminary-page content — each argument is a filename (no extension)
+% that will be \input'd.  Comment out any section you don't need.
+% Dedication, Preface, and Acknowledgments are all optional.
+% Abstract is required.
+% -------------------------------------------------------------------------
+
+\abstract{abstract}
+\acknowledgements{acknowledgements}
+\dedication{dedication}
+% Remove if you don't have a preface
+\preface{preface}
+
+% -------------------------------------------------------------------------
+% Approval page — list committee members who sign (NOT the chair/advisor)
+% The first \signature is the major professor (advisor).
+% Add one \signature per additional member; maximum five total.
+% -------------------------------------------------------------------------
+
+\signature{Dr.~Jane Smith}          % major professor (signs first)
+\signature{Dr.~Robert Johnson}      % committee member 2
+\signature{Dr.~Maria Garcia}        % committee member 3
+% \signature{Dr.~Fourth Member}     % uncomment for 4committee option
+% \signature{Dr.~Fifth Member}      % uncomment for 5committee option
+
+\deansignature{Dean of the Graduate School}  % leave as-is or supply name
+
+% =========================================================================
+\begin{document}
+% =========================================================================
+
+% \newchapter{filename} includes a chapter file and triggers the
+% preliminary pages (title, approval, abstract, TOC, etc.) on first call.
+% Chapter files must be separate .tex files — do not use \chapter directly
+% in this root file.
+
+\newchapter{chapter1}
+\newchapter{chapter2}
+\newchapter{chapter3}
+
+% -------------------------------------------------------------------------
+% Appendices (optional) — comment out if you have none.
+% Each \newappendix call includes one appendix file.
+% -------------------------------------------------------------------------
+
+% \newappendix{appendixA}
+% \newappendix{appendixB} % uncomment if you have a second appendix
+
+% =========================================================================
+\end{document}
+% =========================================================================

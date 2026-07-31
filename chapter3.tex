@@ -1,0 +1,102 @@
+%% chapter3.tex — Methodology, Results, and Conclusions
+%%
+%% In a real thesis this would typically be split into separate files:
+%%   \newchapter{chapter3}   % Methodology
+%%   \newchapter{chapter4}   % Results and Discussion
+%%   \newchapter{chapter5}   % Conclusions
+%%
+%% They are combined here to keep the template compact.
+
+\chapter{Methodology, Results, and Conclusions}
+\label{ch:methods}
+\label{ch:conclusion}
+
+%% -----------------------------------------------------------------------
+%% 3.1 Methodology
+%% -----------------------------------------------------------------------
+\section{Methodology}
+\label{sec:methodology}
+
+Describe your experimental or analytical methods in enough detail that
+a reader with the necessary background could reproduce your work.
+Reference standard techniques with citations~\cite{kopka1999guide}
+and reserve detailed derivations for appendices if they would interrupt
+the narrative flow.
+
+\subsection{Experimental Setup}
+\label{subsec:setup}
+
+Describe your equipment, software, datasets, and any parameters that
+affect reproducibility.
+If your setup involves multiple stages, a numbered list or a flow-diagram
+figure helps the reader follow the sequence.
+
+\subsection{Evaluation Metrics}
+\label{subsec:metrics}
+
+Define the metrics you use to evaluate your results.
+Quantitative metrics should be accompanied by their mathematical
+definitions, as in Equation~\eqref{eq:metric}:
+
+\begin{equation}
+  \label{eq:metric}
+  \text{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(y_i - \hat{y}_i)^2}.
+\end{equation}
+
+%% -----------------------------------------------------------------------
+%% 3.2 Results
+%% -----------------------------------------------------------------------
+\section{Results and Discussion}
+\label{sec:results}
+
+Present your results objectively, then interpret them.
+Connect each result back to the objectives stated in
+Section~\ref{sec:objectives}.
+
+When comparing to prior art (Table~\ref{tab:example} in
+Chapter~\ref{ch:background}), be precise about the conditions under
+which each method was evaluated.
+
+\subsection{Quantitative Results}
+\label{subsec:quantitative}
+
+Summarise numerical results in tables, and use figures to reveal
+trends or distributions that a table cannot capture clearly.
+
+\subsection{Discussion}
+\label{subsec:discussion}
+
+Discuss the implications of your results.
+What do they tell you about the research question posed in
+Chapter~\ref{ch:introduction}?
+Where do the results agree with prior work, and where do they differ?
+
+%% -----------------------------------------------------------------------
+%% 3.3 Conclusions
+%% -----------------------------------------------------------------------
+\section{Conclusions}
+\label{sec:conclusions}
+
+State the conclusions that can be drawn from your work.
+Each conclusion should follow directly from a result or observation
+presented in Section~\ref{sec:results}.
+
+\begin{enumerate}
+  \item The template compiles cleanly under TeX Live 2023 using
+        \texttt{pdflatex} and \texttt{bibtex}.
+  \item Per-chapter and single-list reference modes both function
+        correctly with the provided \texttt{.bst} files.
+  \item The preliminary pages (title, approval, abstract, TOC,
+        List of Figures, List of Tables) are generated automatically.
+\end{enumerate}
+
+\section{Future Work}
+\label{sec:future}
+
+Identify open questions and directions for future investigation.
+Future work might include:
+\begin{itemize}
+  \item Extension of the methodology to additional domains.
+  \item Investigation of alternative approaches not explored here.
+  \item Long-term evaluation studies.
+\end{itemize}

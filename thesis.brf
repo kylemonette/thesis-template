@@ -1,0 +1,10 @@
+\backcite {lamport1994latex}{{1}{1.1}{section.1.1}}
+\backcite {knuth1986texbook}{{1}{1.1}{section.1.1}}
+\backcite {kopka1999guide}{{3}{2.1}{section.2.1}}
+\backcite {lamport1994latex}{{3}{2.1}{section.2.1}}
+\backcite {knuth1986texbook}{{3}{2.1}{section.2.1}}
+\backcite {kopka1999guide}{{3}{2.1}{section.2.1}}
+\backcite {lamport1994latex}{{4}{\global \advance \c@totaltablecount 1\relax 1}{table.2.1}}
+\backcite {knuth1986texbook}{{4}{\global \advance \c@totaltablecount 1\relax 1}{table.2.1}}
+\backcite {kopka1999guide}{{4}{\global \advance \c@totaltablecount 1\relax 1}{table.2.1}}
+\backcite {kopka1999guide}{{6}{3.1}{section.3.1}}
