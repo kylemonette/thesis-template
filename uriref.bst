@@ -3,6 +3,8 @@
 %% Version 1.2 (2006/06/19)
 %% Created from IEEEtran.bst by Timothy Toolan
 %%
+%% Modernized: 2026 by Kyle Monette, kylemonette.github.io
+%%
 %% Used to create the list of references, which is sorted in order of 
 %% citation, for theses and dissertations at the University of Rhode Island.  
 %%

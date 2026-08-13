@@ -2,7 +2,8 @@
 %% Version 3.0 (June 2026)
 %% Copyright 2004, 2005, 2006, 2016, 2024, University of Rhode Island
 %% Original Author: Timothy Toolan, Department of Electrical Engineering
-%% Modernized: 2026 by Kyle Monette
+%%
+%% Modernized: 2026 by Kyle Monette, kylemonette.github.io
 %%
 %% See http://www.ele.uri.edu/info/thesis/guide for the latest
 %% info, including usage and examples.

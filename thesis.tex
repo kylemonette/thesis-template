@@ -61,23 +61,7 @@
 \usepackage{amssymb}         % \mathbb, \mathcal, etc.
 \usepackage{booktabs}        % \toprule, \midrule, \bottomrule in tables
 \usepackage{microtype}       % improved line breaking
-\usepackage[backref=page]{hyperref}
-% NOTE: The following is just an EXAMPLE of how back references can be used. Strictly speaking, this is not 'permitted' in the final thesis submission.
-\hypersetup{hypertexnames = true, colorlinks = true, urlcolor = blue, linkcolor = blue, citecolor = blue}
-\renewcommand*{\backrefsep}{, }
-\renewcommand*{\backreflastsep}{, and~}
-\renewcommand*{\backreftwosep}{ and~}
-\renewcommand*{\backref}[1]{}
-\renewcommand*{\backrefalt}[4]{%
-  \!\small\itshape\mbox{%
-    \ifnum#1=1
-      (Cited on page~%
-    \else
-      (Cited on pages~%
-    \fi
-    #2)%
-  }%
-}
+\usepackage{hyperref}
 
 % -------------------------------------------------------------------------
 % Thesis metadata — fill in every field

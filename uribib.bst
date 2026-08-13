@@ -3,6 +3,8 @@
 %% Version 1.2 (2006/06/19)
 %% Created from IEEEtranS.bst by Timothy Toolan
 %%
+%% Modernized: 2026 by Kyle Monette, kylemonette.github.io
+%%
 %% Used to create the alphabetically sorted bibliography for theses 
 %% and dissertations at the University of Rhode Island.  
 %%
