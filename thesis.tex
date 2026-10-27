@@ -4,33 +4,29 @@
 %% COMPILE SEQUENCE
 %% -------------------------------------------------------------------------
 %%
-%% STANDARD MODE (oneref — single bibliography at the end):
+%% OVERLEAF OR LATEXMK (recommended) — nothing extra to do:
+%%
+%%   Overleaf, and `latexmk -pdf thesis` on your own machine, find every
+%%   .aux file that needs BibTeX (including the per-chapter ones and
+%%   thesisbib.aux) and rerun pdflatex as needed, in every mode.
+%%   genbib.sh is NOT needed.
+%%
+%% MANUAL COMMAND LINE (offline, without latexmk):
 %%
 %%   pdflatex thesis
-%%   bibtex thesis
-%%   pdflatex thesis
-%%   pdflatex thesis
+%%   sh genbib.sh
 %%
-%% CHAPTER REFERENCE MODE (chapterref — separate bibliography per chapter):
-%%
-%%   Step 1 — run pdflatex once to collect citations:
-%%     pdflatex thesis
-%%
-%%   Step 2 — run the generated script to finish the compile:
-%%     sh genbib.sh
-%%
-%%   That script runs bibtex on each chapter's .aux file and on the
-%%   combined thesisbib.aux, then runs pdflatex twice more.
-%%   You can also open genbib.sh in a text editor to see the exact steps.
-%%
-%%   If genbib.sh does not yet exist (very first run), do Step 1 first.
+%%   The class writes genbib.sh on every pdflatex run.  It runs bibtex on
+%%   each .aux file that needs it (thesis.aux for oneref, one per chapter
+%%   for chapterref, plus thesisbib.aux with [bibliography]), then runs
+%%   pdflatex twice more.  genbib.txt lists only the bibtex commands, for
+%%   systems without sh (e.g. Windows).  If genbib.sh does not yet exist
+%%   (very first run), run pdflatex first.
 %%
 %% -------------------------------------------------------------------------
 %% QUICK DRAFT (skip bibliography machinery while writing):
 %%
 %%   Use the [nobib] option:  \documentclass[nobib,...]{urithesis}
-%%
-%% -------------------------------------------------------------------------
 %%
 %% -------------------------------------------------------------------------
 %% CLASS OPTIONS — choose what applies to your thesis
@@ -47,6 +43,8 @@
 %%  Approval:     hardcopy (default, with sig lines) | electronic
 %%  Bibliography: add [bibliography] to also emit a combined alphabetical
 %%                BIBLIOGRAPHY section at the end (useful with \nocite{*})
+%%  Drafting:     draft | draftbox | simpleref | noprelim | nobib
+%%                (see the header of urithesis.cls; not for final submission)
 %%
 %% Example for a PhD dissertation with four committee members:
 %%   \documentclass[phd,4committee,topnum]{urithesis}
@@ -95,9 +93,10 @@
 \preface{preface}
 
 % -------------------------------------------------------------------------
-% Approval page — list committee members who sign (NOT the chair/advisor)
+% Approval page — list the committee members who sign.
 % The first \signature is the major professor (advisor).
-% Add one \signature per additional member; maximum five total.
+% Add one \signature per additional member; maximum five total, and the
+% count must match the 3committee/4committee/5committee class option.
 % -------------------------------------------------------------------------
 
 \signature{Dr.~Jane Smith}          % major professor (signs first)
@@ -106,7 +105,9 @@
 % \signature{Dr.~Fourth Member}     % uncomment for 4committee option
 % \signature{Dr.~Fifth Member}      % uncomment for 5committee option
 
-\deansignature{Dean of the Graduate School}  % leave as-is or supply name
+% Name of the current Dean of the Graduate School (the title line
+% "DEAN OF THE GRADUATE SCHOOL" is added automatically below it).
+\deansignature{Firstname Lastname}
 
 % =========================================================================
 \begin{document}
@@ -126,7 +127,7 @@
 % Each \newappendix call includes one appendix file.
 % -------------------------------------------------------------------------
 
-% \newappendix{appendixA}
+\newappendix{appendixA}
 % \newappendix{appendixB} % uncomment if you have a second appendix
 
 % =========================================================================

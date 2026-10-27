@@ -5,8 +5,8 @@
 %%
 %% Modernized: 2026 by Kyle Monette, kylemonette.github.io
 %%
-%% See http://www.ele.uri.edu/info/thesis/guide for the latest
-%% info, including usage and examples.
+%% See https://web.uri.edu/engineering/thesisguide/ for the original
+%% template and guide.
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -45,13 +45,15 @@
 %                     instead of per-chapter reference lists (default).
 %
 %   chapterref        Per-chapter reference lists instead of a single list.
-%                     After the first pdflatex pass, run the generated
-%                     genbib.sh script for the complete compile sequence.
+%                     Overleaf and latexmk run BibTeX on every chapter
+%                     automatically.  For a manual offline build, run
+%                     pdflatex once, then the generated genbib.sh script.
 %
 %   bibliography      Add a combined alphabetical BIBLIOGRAPHY section at the
 %                     end of the document (after the numbered reference lists).
 %                     Useful with \nocite{*} to include works consulted but not
-%                     cited.  Off by default.
+%                     cited.  \nocite only adds to this section, never to the
+%                     numbered reference lists.  Off by default.
 %
 %   manuscript        Each chapter is called "Manuscript" instead of "Chapter".
 %
@@ -204,7 +206,6 @@
 % Packages required by the class body
 %----------------------------------------------------------------------
 \RequirePackage{url}
-\RequirePackage{xparse}
 
 %----------------------------------------------------------------------
 % User-facing configuration commands
@@ -366,6 +367,11 @@
 \def\@bibliofileext{bib}
 \def\@bibliofile{\jobname\@bibliofileext}
 
+% Output streams, allocated rather than hard-coded so they cannot collide
+% with streams used by the kernel or other packages (.toc, .lof, .out, ...)
+\newwrite\@bibliowrite  % \jobname bib.aux, for the [bibliography] option
+\newwrite\@genbibwrite  % genbib.txt and genbib.sh, written at end of document
+
 % Chapter/section heading names
 \renewcommand\contentsname{TABLE OF CONTENTS}
 \renewcommand\listtablename{LIST OF TABLES}
@@ -466,7 +472,8 @@
   %   - \@filehook@set@CurrentFile call (notifies packages of the
   %     current file; needed by hyperref for anchor scoping)
   %   - \UseHook / \UseOneTimeHook calls for include/before,
-  %     include/end, and include/after (LaTeX 2020+ include hooks)
+  %     include/end, include/after, and include/excluded (LaTeX 2020+
+  %     include hooks)
   %   - Quoted filename in \openout for path-safe file handling
   %   - Second \clearpage before \@writeckpt (matches modern latex.ltx)
 
@@ -523,12 +530,18 @@
     \else
       \deadcycles\z@
       \@nameuse{cp@#1}%
+      \UseHook{include/excluded}%
+      \UseOneTimeHook{include/#1/excluded}%
     \fi
     \let\@auxout\@mainaux
     % Restore chapterbib-style context
     \global\let\@currentipfile\@savedjobname
     \gdef\the@ipfilectr{}%
     \@CB@writeContext
+    \else
+      \@latex@warning{%
+        \noexpand\include should only be used after \string\begin{document}}%
+      \@input@{#1}%
     \fi% closes \ifx\@nodocument\relax
   }
 
@@ -551,7 +564,7 @@
           \stepcounter{chaptercitecount}%
           \if@filesw
             \immediate\write\@auxout{\string\citation{\@citeb}}%
-            \ifbool{@wantbiblio}{\immediate\write12{\string\citation{\@citeb}}}{}%
+            \ifbool{@wantbiblio}{\immediate\write\@bibliowrite{\string\citation{\@citeb}}}{}%
           \fi
           \@ifundefined{b@\@citeb\@extra@b@citeb}{%
             \mbox{\reset@font\bfseries ?}%
@@ -592,7 +605,7 @@
         \edef\@citeb{\expandafter\@firstofone\@citeb\@empty}%
         \if@filesw
           \immediate\write\@auxout{\string\citation{\@citeb}}%
-          \ifbool{@wantbiblio}{\immediate\write12{\string\citation{\@citeb}}}{}%
+          \ifbool{@wantbiblio}{\immediate\write\@bibliowrite{\string\citation{\@citeb}}}{}%
         \fi
         \@ifundefined{b@\@citeb}{%
           \mbox{\reset@font\bfseries ?}%
@@ -613,15 +626,28 @@
 %----------------------------------------------------------------------
 
 \AtBeginDocument{%
-  % \nocite writes to the bibliography aux stream (stream 12) so that works
-  % consulted but not cited can appear in the BIBLIOGRAPHY section.
-  % Stream 12 is only open when the [bibliography] class option is active.
+  % Open the combined bibliography aux file only when the [bibliography]
+  % option is active.  Without it the thesisbib section is suppressed
+  % entirely and bibtex thesisbib is never needed.  It is opened here
+  % (not at the first \newchapter) so that a \nocite{*} placed right
+  % after \begin{document} is not lost.
+  \ifbool{@wantbiblio}{%
+    \if@filesw
+      \immediate\openout\@bibliowrite=\@bibliofile.aux
+      \immediate\write\@bibliowrite{\string\bibstyle{uribib}}%
+      \immediate\write\@bibliowrite{\string\bibdata{\@reffile}}%
+    \fi
+  }{}%
+  %
+  % \nocite writes to the bibliography aux stream so that works consulted
+  % but not cited can appear in the BIBLIOGRAPHY section.  That stream is
+  % only open when the [bibliography] class option is active.
   \def\nocite#1{%
     \@bsphack
     \@for\@citeb:=#1\do{%
       \edef\@citeb{\expandafter\@firstofone\@citeb}%
       \ifbool{@wantbiblio}{%
-        \if@filesw\immediate\write12{\string\citation{\@citeb}}\fi
+        \if@filesw\immediate\write\@bibliowrite{\string\citation{\@citeb}}\fi
       }{}%
     }%
     \@esphack
@@ -642,7 +668,7 @@
       \if@filesw\immediate\write\@auxout{\string\citation{\@no@sparg}}\fi
       \stepcounter{chaptercitecount}%
       \ifbool{@wantbiblio}{%
-        \if@filesw\immediate\write12{\string\citation{\@no@sparg}}\fi
+        \if@filesw\immediate\write\@bibliowrite{\string\citation{\@no@sparg}}\fi
       }{}%
     }%
   }%
@@ -815,25 +841,35 @@
   \@xsect{#5}%
 }
 
-% List-of-figures/tables entries: extra 1.7em indent to allow runover alignment
-\renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{4.0em}}
+% List-of-figures/tables entries: extra 1.7em indent to allow runover
+% alignment, with -1.7em after the number on the first line.  This is done
+% when the list is typeset (rather than in \@caption) so that it still
+% applies when hyperref or another package replaces \@caption.
+\renewcommand*\l@figure[2]{%
+  \begingroup
+    \let\uri@numberline\numberline
+    \def\numberline##1{\uri@numberline{##1}\hspace{-1.7em}}%
+    \@dottedtocline{1}{1.5em}{4.0em}{#1}{#2}%
+  \endgroup
+}
 \let\l@table\l@figure
 
-% Caption formatting: -1.7em on first line so runover lines align
-\long\def\@caption#1[#2]#3{%
-  \par
-  \ifbool{@gotfirstappendix}{}{%
-    % Appendix figures/tables are intentionally excluded from the lists
-    \addcontentsline{\csname ext@#1\endcsname}{#1}{%
-      \protect\numberline{\csname the#1\endcsname}{\hspace{-1.7em}%
-        \ignorespaces #2}}%
+% Wrap whichever \@caption is active once all packages are loaded (hyperref
+% replaces the kernel's).  Appendix figures/tables are intentionally
+% excluded from the lists, and listed captions are counted to decide
+% whether the LOF/LOT pages are needed.
+\AddToHook{begindocument/end}{%
+  \let\uri@caption\@caption
+  \long\def\@caption#1[#2]#3{%
+    \let\uri@addcontentsline\addcontentsline
+    \ifbool{@gotfirstappendix}{%
+      \def\addcontentsline##1##2##3{}%
+    }{%
+      \@ifundefined{c@total#1count}{}{\addtocounter{total#1count}{1}}%
+    }%
+    \uri@caption{#1}[{#2}]{#3}%
+    \let\addcontentsline\uri@addcontentsline
   }%
-  \begingroup
-    \@parboxrestore
-    \if@minipage\@setminipage\fi
-    \normalsize
-    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
-  \endgroup
 }
 
 % Heading for unnumbered chapters (abstract, bibliography, etc.)
@@ -869,11 +905,10 @@
     {\renewcommand{\baselinestretch}{1.0}\normalfont\normalsize\bfseries}}
 
 % Figure/table/equation numbering (sequential or chapter-prefixed)
+% (These must stay side-effect free: they are expanded into \label text.)
 \renewcommand\thefigure{%
-  \addtocounter{totalfigurecount}{1}%
   \ifbool{@sequential}{}{\thechapter.}\@arabic\c@figure}
 \renewcommand\thetable{%
-  \addtocounter{totaltablecount}{1}%
   \ifbool{@sequential}{}{\thechapter.}\@arabic\c@table}
 \renewcommand\theequation{%
   \ifbool{@sequential}{}{\thechapter.}\@arabic\c@equation}
@@ -1198,15 +1233,6 @@
 %----------------------------------------------------------------------
 
 \def\initialstuff{%
-  % Open the combined bibliography aux file (stream 12) only when the
-  % [bibliography] option is active.  Without it the thesisbib section
-  % is suppressed entirely and bibtex thesisbib is never needed.
-  \ifbool{@wantbiblio}{%
-    \immediate\openout12=\@bibliofile.aux
-    \immediate\write12{\string\bibstyle{uribib}}%
-    \immediate\write12{\string\bibdata{\@reffile}}%
-  }{}
-  %
   \@ifundefined{@myusefigurespage}{}{\booltrue{@usefigurespage}}%
   \@ifundefined{@myusetablespage}{}{\booltrue{@usetablespage}}%
   %
@@ -1227,13 +1253,15 @@
 \def\startappendix{%
   \@ifundefined{@multappendix}{\def\@usesingappend{Y}}{}%
   \ifbool{@wantchapterref}{}{%
-    \def\addcustomcontentsline{%
-      \addcontentsline{toc}{chapterx}{\listrefname}}%
-    \if@filesw\immediate\write\@auxout{\string\bibstyle{\@refbstfile}}\fi
-    \ifbool{@simpleref}{}{%
-      \if@filesw\immediate\write\@auxout{\string\bibdata{\@reffile}}\fi
-      \@input{\jobname.bbl}%
-      \add@biblist{\jobname}%
+    \ifbool{@nobib}{}{%
+      \def\addcustomcontentsline{%
+        \addcontentsline{toc}{chapterx}{\listrefname}}%
+      \if@filesw\immediate\write\@auxout{\string\bibstyle{\@refbstfile}}\fi
+      \ifbool{@simpleref}{}{%
+        \if@filesw\immediate\write\@auxout{\string\bibdata{\@reffile}}\fi
+        \@input{\jobname.bbl}%
+        \add@biblist{\jobname}%
+      }%
     }%
     \newpage
   }%
@@ -1258,14 +1286,18 @@
 %----------------------------------------------------------------------
 
 \def\biblio{%
-  \ifbool{@nobib}{}{%
+  \ifbool{@nobib}{\@addfigtbl}{%
     \ifbool{@simpleref}{%
-      \if@filesw\immediate\write\@auxout{\string\bibdata{\@reffile}}\fi
-      \ifbool{@noprelim}{%
-        \if@filesw\immediate\write\@auxout{\string\bibstyle{\@refbstfile}}\fi
-      }{%
-        \@addfigtbl
-      }%
+      % \startappendix has already written \bibstyle if there are appendices;
+      % BibTeX rejects a second one.
+      \if@filesw
+        \ifbool{@gotfirstappendix}{}{%
+          \immediate\write\@auxout{\string\bibstyle{\@refbstfile}}}%
+        \immediate\write\@auxout{\string\bibdata{\@reffile}}%
+      \fi
+      \ifbool{@noprelim}{}{\@addfigtbl}%
+      \def\addcustomcontentsline{%
+        \addcontentsline{toc}{chapterx}{\listrefname}}%
       \@input{\jobname.bbl}%
       \add@biblist{\jobname}%
     }{%
@@ -1290,54 +1322,57 @@
 % require overriding \enddocument. The BibTeX reminder message is
 % written after the final \clearpage so it is not buried in other output.
 %
-% We write two output files:
+% We write two output files for manual, offline builds.  Neither is
+% needed on Overleaf or with latexmk, which find every .aux file that
+% needs BibTeX on their own.
 %   genbib.sh  — a complete, executable shell script that runs the full
 %                compile sequence: pdflatex, bibtex (once per chapter/bib
-%                aux), then two final pdflatex passes.  This is the only
-%                file users need to worry about.
-%   genbib.txt — the plain-text list of bibtex commands kept for backward
-%                compatibility (older documentation references it).
+%                aux), then two final pdflatex passes.
+%   genbib.txt — the plain-text list of bibtex commands, for systems
+%                without sh and for backward compatibility.
 %----------------------------------------------------------------------
 
 \AtEndDocument{%
   \biblio
+  \ifbool{@wantbiblio}{\if@filesw\immediate\closeout\@bibliowrite\fi}{}%
   \@ifundefined{@biblist}{}{%
     \clearpage
     %
     % ----- Console reminder -----
-    \immediate\write16{}%
-    \immediate\write16{** Bibliography info: run genbib.sh (or follow the}%
-    \immediate\write16{** steps in genbib.txt) to complete the compile. **}%
-    \immediate\write16{}%
+    \typeout{}%
+    \typeout{** Bibliography info: for a manual build, run genbib.sh (or the}%
+    \typeout{** steps in genbib.txt).  Not needed with latexmk or Overleaf. **}%
+    \typeout{}%
     %
     % ----- genbib.txt (backward-compat plain list) -----
-    \immediate\openout13=genbib.txt
-    \immediate\write13{\@biblist}%
-    \immediate\closeout13
+    \immediate\openout\@genbibwrite=genbib.txt
+    \immediate\write\@genbibwrite{\@biblist}%
+    \immediate\closeout\@genbibwrite
     %
     % ----- genbib.sh (complete, ready-to-run shell script) -----
-    \immediate\openout14=genbib.sh
-    \immediate\write14{\@hashchar!/bin/sh}%
-    \immediate\write14{\@hashchar\space genbib.sh --- auto-generated by urithesis.cls}%
-    \immediate\write14{\@hashchar\space Run this script from the directory containing your .tex files}%
-    \immediate\write14{\@hashchar\space to produce a fully resolved PDF.}%
-    \immediate\write14{}%
-    \immediate\write14{set -e}%
-    \immediate\write14{}%
-    \immediate\write14{echo "==> Pass 1: pdflatex (collecting citations)..."}%
-    \immediate\write14{pdflatex \jobname}%
-    \immediate\write14{}%
-    \immediate\write14{echo "==> Running BibTeX on each aux file..."}%
-    \immediate\write14{\@biblist}%
-    \immediate\write14{}%
-    \immediate\write14{echo "==> Pass 2: pdflatex (reading .bbl files)..."}%
-    \immediate\write14{pdflatex \jobname}%
-    \immediate\write14{}%
-    \immediate\write14{echo "==> Pass 3: pdflatex (resolving cross-references)..."}%
-    \immediate\write14{pdflatex \jobname}%
-    \immediate\write14{}%
-    \immediate\write14{echo "==> Done. Output: \jobname.pdf"}%
-    \immediate\closeout14
+    \immediate\openout\@genbibwrite=genbib.sh
+    \immediate\write\@genbibwrite{\@hashchar!/bin/sh}%
+    \immediate\write\@genbibwrite{\@hashchar\space genbib.sh --- auto-generated by urithesis.cls}%
+    \immediate\write\@genbibwrite{\@hashchar\space Run this script from the directory containing your .tex files}%
+    \immediate\write\@genbibwrite{\@hashchar\space to produce a fully resolved PDF.  Only needed for manual}%
+    \immediate\write\@genbibwrite{\@hashchar\space offline builds; Overleaf and latexmk run BibTeX automatically.}%
+    \immediate\write\@genbibwrite{}%
+    \immediate\write\@genbibwrite{set -e}%
+    \immediate\write\@genbibwrite{}%
+    \immediate\write\@genbibwrite{echo "==> Pass 1: pdflatex (collecting citations)..."}%
+    \immediate\write\@genbibwrite{pdflatex \jobname}%
+    \immediate\write\@genbibwrite{}%
+    \immediate\write\@genbibwrite{echo "==> Running BibTeX on each aux file..."}%
+    \immediate\write\@genbibwrite{\@biblist}%
+    \immediate\write\@genbibwrite{}%
+    \immediate\write\@genbibwrite{echo "==> Pass 2: pdflatex (reading .bbl files)..."}%
+    \immediate\write\@genbibwrite{pdflatex \jobname}%
+    \immediate\write\@genbibwrite{}%
+    \immediate\write\@genbibwrite{echo "==> Pass 3: pdflatex (resolving cross-references)..."}%
+    \immediate\write\@genbibwrite{pdflatex \jobname}%
+    \immediate\write\@genbibwrite{}%
+    \immediate\write\@genbibwrite{echo "==> Done. Output: \jobname.pdf"}%
+    \immediate\closeout\@genbibwrite
   }%
 }
 
