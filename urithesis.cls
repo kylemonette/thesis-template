@@ -49,11 +49,14 @@
 %                     automatically.  For a manual offline build, run
 %                     pdflatex once, then the generated genbib.sh script.
 %
-%   bibliography      Add a combined alphabetical BIBLIOGRAPHY section at the
-%                     end of the document (after the numbered reference lists).
-%                     Useful with \nocite{*} to include works consulted but not
-%                     cited.  \nocite only adds to this section, never to the
-%                     numbered reference lists.  Off by default.
+%   bibliography,     Add (or omit) a combined alphabetical BIBLIOGRAPHY
+%   nobibliography    section at the end of the document (after the numbered
+%                     reference lists).  The Graduate School requires it in
+%                     standard format and makes it optional in manuscript
+%                     format.  Default: on for standard, off for manuscript.
+%                     Use \nocite{key} or \nocite{*} to include works consulted
+%                     but not cited.  \nocite only adds to this section, never
+%                     to the numbered reference lists.
 %
 %   manuscript        Each chapter is called "Manuscript" instead of "Chapter".
 %
@@ -80,8 +83,8 @@
 %
 %   draftbox          Like draft but figures are displayed.
 %
-%   simpleref         Single reference list at document end; only one BibTeX
-%                     run needed.
+%   simpleref         Single reference list at document end and no
+%                     bibliography; only one BibTeX run needed.
 %
 %   noprelim          Suppress all preliminary pages (title, TOC, etc.).
 %
@@ -164,11 +167,14 @@
 \newbool{@nobib}  \boolfalse{@nobib}
 \DeclareOption{nobib}{\booltrue{@nobib}}
 
-% bibliography — emit a combined alphabetical BIBLIOGRAPHY section at the end
-% (in addition to the numbered reference lists).  Useful when you want to include
-% works consulted but not cited via \nocite{*}.  Off by default.
+% bibliography, nobibliography — emit (or not) a combined alphabetical
+% BIBLIOGRAPHY section at the end, after the numbered reference lists.
+% Default: on for standard format (required by the Graduate School), off for
+% manuscript format.  The default is resolved after \ProcessOptions.
 \newbool{@wantbiblio}  \boolfalse{@wantbiblio}
-\DeclareOption{bibliography}{\booltrue{@wantbiblio}}
+\newbool{@biblioset}   \boolfalse{@biblioset}
+\DeclareOption{bibliography}{\booltrue{@wantbiblio}\booltrue{@biblioset}}
+\DeclareOption{nobibliography}{\boolfalse{@wantbiblio}\booltrue{@biblioset}}
 
 \newbool{@draftbox}  \boolfalse{@draftbox}
 \DeclareOption{draftbox}{\booltrue{@draftbox}}
@@ -191,6 +197,13 @@
 %----------------------------------------------------------------------
 
 \ifbool{@draftbox}{\setlength\overfullrule{5pt}}{}
+
+% Bibliography default: on for standard format unless set explicitly.
+% simpleref and nobib never produce one.
+\ifbool{@biblioset}{}{%
+  \ifbool{@wantmanuscript}{}{\booltrue{@wantbiblio}}}
+\ifbool{@simpleref}{\boolfalse{@wantbiblio}}{}
+\ifbool{@nobib}{\boolfalse{@wantbiblio}}{}
 
 % APA citation formatting
 \ifbool{@wantapalike}{%
@@ -369,7 +382,7 @@
 
 % Output streams, allocated rather than hard-coded so they cannot collide
 % with streams used by the kernel or other packages (.toc, .lof, .out, ...)
-\newwrite\@bibliowrite  % \jobname bib.aux, for the [bibliography] option
+\newwrite\@bibliowrite  % \jobname bib.aux, for the BIBLIOGRAPHY section
 \newwrite\@genbibwrite  % genbib.txt and genbib.sh, written at end of document
 
 % Chapter/section heading names
@@ -626,8 +639,8 @@
 %----------------------------------------------------------------------
 
 \AtBeginDocument{%
-  % Open the combined bibliography aux file only when the [bibliography]
-  % option is active.  Without it the thesisbib section is suppressed
+  % Open the combined bibliography aux file only when the bibliography is
+  % on (see the bibliography option).  Otherwise the thesisbib section is suppressed
   % entirely and bibtex thesisbib is never needed.  It is opened here
   % (not at the first \newchapter) so that a \nocite{*} placed right
   % after \begin{document} is not lost.
@@ -641,7 +654,7 @@
   %
   % \nocite writes to the bibliography aux stream so that works consulted
   % but not cited can appear in the BIBLIOGRAPHY section.  That stream is
-  % only open when the [bibliography] class option is active.
+  % only open when the bibliography is on.
   \def\nocite#1{%
     \@bsphack
     \@for\@citeb:=#1\do{%
@@ -1304,7 +1317,7 @@
       \ifbool{@gotfirstappendix}{}{\startappendix}%
       \@addfigtbl
       % The combined alphabetical BIBLIOGRAPHY section (thesisbib.bbl) is only
-      % emitted when the [bibliography] class option is given.  Without it, the
+      % emitted when the bibliography is on (see the bibliography option).  Otherwise the
       % per-chapter or single reference list is the only bibliography section.
       \ifbool{@wantbiblio}{%
         \@input{\@bibliofile.bbl}%

@@ -10,9 +10,8 @@ echo "==> Pass 1: pdflatex (collecting citations)..."
 pdflatex thesis
 
 echo "==> Running BibTeX on each aux file..."
- bibtex chapter1
- bibtex chapter2
- bibtex chapter3
+ bibtex thesis
+ bibtex thesisbib
 
 echo "==> Pass 2: pdflatex (reading .bbl files)..."
 pdflatex thesis

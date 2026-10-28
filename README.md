@@ -2,7 +2,7 @@
 
 ### Author: Kyle Monette, [kylemonette.github.io](https://kylemonette.github.io)
 
-#### Updated: October 27, 2026
+#### Updated: October 28, 2026
 
 ---
 
@@ -12,10 +12,10 @@ Major changes include:
 
 - **`urithesis.cls`**  &mdash; Modernized internals, options rewritten with `etoolbox` instead of legacy `\newif`.
 - **Unified bibliography** &mdash; the separate `urithesis-biblatex.cls` and its example files have been dropped entirely; there's now one class supporting both `oneref` (single end-of-thesis list) and `chapterref` (per-chapter reference lists) via BibTeX.
-- **New `bibliography` class option** &mdash; lets you optionally emit a combined alphabetical bibliography section at the end (e.g. with `\nocite{*}`) without duplicating it by default, fixing a prior duplicate-bibliography issue.
+- **New `bibliography`/`nobibliography` class options** &mdash; control the combined alphabetical bibliography section at the end (e.g. with `\nocite{*}`). It is on by default in standard format, where the Graduate School requires it, and off in manuscript format, where it is optional.
 - **Modernized `\@include` override** &mdash; now uses LaTeX 2020+ include hooks (`include/before`, `include/end`, `include/after`) so packages like `hyperref` behave correctly.
 - **Auto-generated `genbib.sh`** &mdash; replaces the old plain-text `genbib.txt` instructions with a shell script that runs BibTeX per-chapter and re-runs `pdflatex` the correct number of times. Only needed for manual offline builds; Overleaf and `latexmk` handle this automatically.
-- **New/expanded class options**: `bibliography`, `draftbox`, `noprelim`, `nobib`, `simpleref`, plus clearer defaults (`masters`/`phd`, `oneref`/`chapterref`, `topnum`/`bottomnum`, `hardcopy`/`electronic`, `sequential`/`nonsequential`).
+- **New/expanded class options**: `bibliography`, `nobibliography`, `draftbox`, `noprelim`, `nobib`, `simpleref`, plus clearer defaults (`masters`/`phd`, `oneref`/`chapterref`, `topnum`/`bottomnum`, `hardcopy`/`electronic`, `sequential`/`nonsequential`).
 - **`\cl@chapter` and per-chapter counter handling cleaned up** to avoid the token-stream corruption that could occur when other packages (e.g. `listings`) extend LaTeX's counter-reset lists via `\AtBeginDocument`.
 
 ---

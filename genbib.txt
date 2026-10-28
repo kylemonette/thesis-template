@@ -1,3 +1,2 @@
- bibtex chapter1
- bibtex chapter2
- bibtex chapter3
+ bibtex thesis
+ bibtex thesisbib

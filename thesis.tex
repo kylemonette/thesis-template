@@ -18,7 +18,7 @@
 %%
 %%   The class writes genbib.sh on every pdflatex run.  It runs bibtex on
 %%   each .aux file that needs it (thesis.aux for oneref, one per chapter
-%%   for chapterref, plus thesisbib.aux with [bibliography]), then runs
+%%   for chapterref, plus thesisbib.aux for the bibliography), then runs
 %%   pdflatex twice more.  genbib.txt lists only the bibtex commands, for
 %%   systems without sh (e.g. Windows).  If genbib.sh does not yet exist
 %%   (very first run), run pdflatex first.
@@ -41,15 +41,17 @@
 %%  Page numbers: bottomnum (default) | topnum
 %%  Citations:    numeric (default) | aparefs
 %%  Approval:     hardcopy (default, with sig lines) | electronic
-%%  Bibliography: add [bibliography] to also emit a combined alphabetical
-%%                BIBLIOGRAPHY section at the end (useful with \nocite{*})
+%%  Bibliography: bibliography | nobibliography — a combined alphabetical
+%%                BIBLIOGRAPHY section at the end, after any appendices.
+%%                Default: on for standard (required by the Graduate School),
+%%                off for manuscript.  Use \nocite{*} to list works consulted.
 %%  Drafting:     draft | draftbox | simpleref | noprelim | nobib
 %%                (see the header of urithesis.cls; not for final submission)
 %%
 %% Example for a PhD dissertation with four committee members:
 %%   \documentclass[phd,4committee,topnum]{urithesis}
 
-\documentclass[phd,12pt,3committee,chapterref,manuscript]{urithesis}
+\documentclass[phd,12pt,3committee,oneref,standard]{urithesis}
 
 % -------------------------------------------------------------------------
 % Packages — add your own here
