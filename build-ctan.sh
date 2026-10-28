@@ -3,8 +3,8 @@
 #
 # Compiles the documentation and the sample thesis, then copies the
 # package files (and nothing else) into urithesis/ and zips it.
-# Generated files such as genbib.sh, genbib.txt, and .aux files are
-# left out, as CTAN requires.
+# Generated files such as genbib.sh, genbib.txt, and .aux files, and
+# macOS .DS_Store files, are left out, as CTAN requires.
 
 set -e
 
@@ -19,7 +19,9 @@ cp README.txt urithesis.cls uriref.bst uribib.bst uriapa.bst \
    chapter1.tex chapter2.tex chapter3.tex appendixA.tex references.bib \
    thesis.pdf \
    urithesis/
-zip -r -q urithesis.zip urithesis
+# macOS Finder can create .DS_Store files, which CTAN does not accept.
+find urithesis -name .DS_Store -delete
+zip -r -q urithesis.zip urithesis -x '*.DS_Store'
 rm -rf urithesis
 
 echo "Created urithesis.zip"
