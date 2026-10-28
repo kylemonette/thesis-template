@@ -1,0 +1,377 @@
+% urithesis-doc.tex --- documentation for urithesis.cls
+%
+% Copyright 2026 Kyle Monette
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{geometry}
+\geometry{margin=0.8in}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true}
+\setlength{\emergencystretch}{3em}
+
+\newcommand\cls{\texttt{urithesis}}
+\newcommand\cs[1]{\texttt{\char`\\#1}}
+\newcommand\meta[1]{\textit{$\langle$#1$\rangle$}}
+\newcommand\marg[1]{\texttt{\{}\meta{#1}\texttt{\}}}
+\newcommand\opt[1]{\texttt{#1}}
+\newcommand\file[1]{\texttt{#1}}
+
+\title{\texttt{urithesis.cls}\\[0.5ex]
+  \large Theses and dissertations at the University of Rhode Island}
+\author{Kyle Monette (\href{https://kylemonette.github.io}{kylemonette.github.io}) \\
+  \small Based on version 2.0 by Timothy Toolan \\
+  \small Released under the LaTeX Project Public License (LPPL), version 1.3c}
+\date{2026/10/28 --- Version 3.0}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+
+\cls{} is a \LaTeX{} document class for writing a thesis or dissertation that
+follows the formatting guidelines of the
+\href{https://web.uri.edu/graduate-school/academics/thesis-dissertation/formatting/}{Graduate School}
+at the University of Rhode Island.
+It produces the title page, approval page, table of contents, list of figures,
+and list of tables, and it sets the margins, spacing, and page numbering.
+It also produces the List of References and the Bibliography from a Bib\TeX{}
+database.
+
+The package includes a sample thesis that compiles as-is.
+Most students only need to edit it: fill in the details in \file{thesis.tex},
+write chapters in \file{chapter1.tex}, \file{chapter2.tex}, and so on, and add
+sources to \file{references.bib}.
+
+This is a modified version of \cls{} version~2.0 by Timothy Toolan.
+See Section~\ref{sec:license} for the license and the list of changes.
+
+\tableofcontents
+
+\section{Quick start}
+
+\begin{enumerate}
+\item Download the package and unzip it.
+\item Compile \file{thesis.tex}:
+  \begin{itemize}
+  \item \textbf{Overleaf:} create a new project with \emph{New Project
+    $\to$ Upload Project}, choose the zip file, and click \emph{Recompile}.
+  \item \textbf{On your computer:} run \verb|latexmk -pdf thesis|, or run
+    \verb|pdflatex thesis| followed by \verb|sh genbib.sh|
+    (see Section~\ref{sec:compile}).
+  \end{itemize}
+\item Check that the result matches the sample \file{thesis.pdf}.
+\item Edit \file{thesis.tex}: choose the class options
+  (Section~\ref{sec:options}) and fill in the title, author, committee, and
+  front matter (Section~\ref{sec:setup}).
+\item Write your chapters and add your sources to \file{references.bib}.
+\end{enumerate}
+
+\section{Requirements}
+
+\cls{} needs a \LaTeX{} kernel from October 2020 or later, pdf\LaTeX, and
+Bib\TeX.
+Any current \TeX{} Live, Mac\TeX, or MiK\TeX{} installation works, as does
+Overleaf.
+The class loads \texttt{etoolbox}, \texttt{ifthen}, and \texttt{url}.
+
+\section{Files}
+
+\noindent
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.42\linewidth}X@{}}
+\toprule
+\file{urithesis.cls} & The document class. \\
+\file{uriref.bst} & Bib\TeX{} style for the numbered List of References, like [1]. \\
+\file{uriapa.bst} & Bib\TeX{} style for author--year references, like (Toolan, 2006). \\
+\file{uribib.bst} & Bib\TeX{} style for the alphabetical Bibliography. \\
+\midrule
+\file{thesis.tex} & The main file of the sample thesis. Compile this file only. \\
+\file{abstract.tex}, \file{acknowledgements.tex}, \file{dedication.tex}, \file{preface.tex}
+  & Front matter of the sample thesis. \\
+\file{chapter1.tex}--\file{chapter3.tex}, \file{appendixA.tex}
+  & Sample chapters and appendix, with examples of figures, tables,
+    equations, and citations. \\
+\file{references.bib} & Sample Bib\TeX{} database. \\
+\file{thesis.pdf} & The compiled sample thesis. \\
+\file{urithesis-doc.tex}, \file{urithesis-doc.pdf} & This document. \\
+\bottomrule
+\end{tabularx}
+
+\medskip
+\noindent Keep the class and \file{.bst} files in the same folder as
+\file{thesis.tex}, unless your \TeX{} distribution already includes \cls.
+
+\section{Class options}\label{sec:options}
+
+Options go in the \cs{documentclass} line of \file{thesis.tex}, separated by
+commas.
+For example, a PhD dissertation with four committee members and page numbers
+at the top right is written as
+\begin{verbatim}
+\documentclass[phd,4committee,topnum]{urithesis}
+\end{verbatim}
+
+\subsection{General options}
+
+These options all follow the Graduate School guidelines.
+Defaults are marked with an asterisk.
+
+\medskip
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule
+\opt{masters}*, \opt{phd} & Master's thesis or doctoral dissertation. \\
+\opt{12pt}*, \opt{11pt}, \opt{10pt} & Font size. \\
+\opt{standard}*, \opt{manuscript} & Standard or manuscript format. In
+  manuscript format, chapters are called ``Manuscript'' instead of
+  ``Chapter''. \\
+\opt{oneref}*, \opt{chapterref} & One List of References after the last
+  chapter, or a List of References at the end of each chapter. \\
+\opt{bibliography}, \opt{nobibliography} & Include or omit the alphabetical
+  Bibliography at the end. The default is to include it in standard format,
+  where the Graduate School requires it, and to omit it in manuscript format,
+  where it is optional. \\
+\opt{aparefs} & Cite by author and year, like (Toolan, 2006), instead of by
+  number, like [1]. \\
+\opt{3committee}*, \opt{4committee}, \opt{5committee} & Number of core
+  committee members on the approval page, not counting the Dean. \\
+\opt{sequential}*, \opt{nonsequential} & Number figures, tables, and
+  equations throughout the thesis, or restart the numbering in each
+  chapter. \\
+\opt{bottomnum}*, \opt{topnum} & Page numbers at the bottom center or the top
+  right. \\
+\opt{hardcopy}*, \opt{electronic} & Approval page with signature lines, or
+  with the typed names only. \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Drafting options}
+
+These options make writing faster, but the result does not follow the
+Graduate School guidelines.
+Remove them before submitting your thesis.
+
+\medskip
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule
+\opt{draft} & Mark overfull lines with a black box, and show only the file
+  names of figures. \\
+\opt{draftbox} & Like \opt{draft}, but show the figures. \\
+\opt{simpleref} & One List of References at the very end, and no
+  Bibliography. Only one Bib\TeX{} run is needed. \\
+\opt{noprelim} & Leave out the pages before Chapter~1. \\
+\opt{nobib} & Leave out the List of References and the Bibliography.
+  Citations appear as [?]. \\
+\bottomrule
+\end{tabularx}
+
+\medskip
+\noindent To compile only the chapter you are working on, combine
+\opt{noprelim} and \opt{nobib} with \LaTeX's \cs{includeonly} command.
+
+\section{Setting up \texttt{thesis.tex}}\label{sec:setup}
+
+\subsection{Title page and approval page}
+
+These commands go in the preamble of \file{thesis.tex}.
+
+\medskip
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule
+\cs{title}\marg{title} & Title of the thesis. Use the capitalization you want
+  on the title page. \\
+\cs{author}\marg{name} & Your name. Write \texttt{John L.\string~Doe} so that the
+  period after an initial is not treated as the end of a sentence. \\
+\cs{dept}\marg{department} & Department on the title page. The default is
+  Electrical Engineering, so most students need to set this. \\
+\cs{copyrightyear}\marg{year} & Year on the title and approval pages. The
+  default is the current year; the Graduate School requires the year of your
+  graduation. \\
+\cs{signature}\marg{name} & One committee member. Use one \cs{signature} per
+  member; the first is the major professor. The number must match the
+  \opt{3committee}, \opt{4committee}, or \opt{5committee} option. \\
+\cs{deansignature}\marg{name} & The Dean of the Graduate School. \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Front matter}
+
+The title page, approval page, table of contents, list of figures, and list of
+tables are produced automatically.
+The lists of figures and tables appear only if the thesis has figures or
+tables.
+The other front matter is written in separate files, which are included with
+the commands below.
+Each argument is a file name without the \file{.tex} extension, and each file
+contains only the text, since the heading is added automatically.
+
+\medskip
+\noindent
+\begin{tabularx}{\linewidth}{@{}llX@{}}
+\toprule
+Section & Command & \\
+\midrule
+Abstract & \cs{abstract}\marg{file} & Required. \\
+Acknowledgments & \cs{acknowledgements}\marg{file} & Optional. \\
+Dedication & \cs{dedication}\marg{file} & Optional. \\
+Preface & \cs{preface}\marg{file} & Optional. \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Chapters and appendices}
+
+After \verb|\begin{document}|, include each chapter with
+\cs{newchapter}\marg{file} and each appendix with \cs{newappendix}\marg{file}:
+\begin{verbatim}
+\newchapter{chapter1}
+\newchapter{chapter2}
+\newappendix{appendixA}
+\end{verbatim}
+Each chapter or appendix file starts with \cs{chapter}\marg{title}.
+Chapters are numbered 1, 2, \ldots{} and appendices A, B, \ldots.
+Do not put \cs{chapter} directly in \file{thesis.tex}.
+
+\section{References and the Bibliography}
+
+The Graduate School recognizes two kinds of reference lists.
+\begin{description}
+\item[List of References.] A numbered list of the sources cited, in the order
+  they are cited. It is optional, and appears either at the end of each
+  chapter (\opt{chapterref}) or once after the last chapter (\opt{oneref}).
+\item[Bibliography.] An alphabetical list of all sources used or consulted.
+  It is the last section of the thesis. It is required in standard format and
+  optional in manuscript format.
+\end{description}
+
+\noindent \cls{} produces both from the same Bib\TeX{} database.
+Name the database with \cs{reffile}\marg{file}, without the \file{.bib}
+extension; a comma-separated list of files is also accepted.
+Cite sources with \cs{cite} as usual.
+Do not use \cs{bibliography} or \cs{bibliographystyle}; the class handles
+both, and these commands do nothing.
+
+To list a source in the Bibliography without citing it, use
+\cs{nocite}\marg{key}, or \verb|\nocite{*}| to list every entry in the
+database.
+\cs{nocite} adds sources to the Bibliography only, never to the List of
+References.
+
+The styles are based on \texttt{IEEEtran.bst}, so its entry types are
+available, including \texttt{@electronic} for web pages and \texttt{@patent},
+\texttt{@periodical}, and \texttt{@standard}.
+They are described in ``How to Use the IEEEtran Bib\TeX{} Style'' by Michael
+Shell (run \verb|texdoc IEEEtran_bst_HOWTO|).
+With \opt{aparefs}, an entry without an author is cited by its \texttt{key}
+field.
+
+\section{Compiling}\label{sec:compile}
+
+A thesis has several reference lists, and each one needs its own Bib\TeX{}
+run.
+How you compile depends on your setup.
+\begin{description}
+\item[Overleaf.] Click \emph{Recompile}. Overleaf runs Bib\TeX{} on every list
+  automatically.
+\item[latexmk.] Run \verb|latexmk -pdf thesis|. It runs pdf\LaTeX{} and
+  Bib\TeX{} as many times as needed. Many editors can use latexmk.
+\item[By hand.] Run \verb|pdflatex thesis| once, then \verb|sh genbib.sh|.
+  On every run, \cls{} writes the script \file{genbib.sh}, which runs Bib\TeX{}
+  on each list and then pdf\LaTeX{} twice more. It also writes
+  \file{genbib.txt}, which lists only the Bib\TeX{} commands, for systems
+  without \texttt{sh}. Run these commands, then run \verb|pdflatex thesis|
+  twice.
+\end{description}
+
+\section{Tips}
+
+\begin{itemize}
+\item The text is double spaced. Use \cs{singlespace} and \cs{doublespace} to
+  switch spacing where the Graduate School allows single spacing, such as long
+  quotations.
+\item Load \texttt{hyperref} to make citations, cross-references, and the
+  table of contents clickable in the PDF.
+\item Do not load the \texttt{chapterbib} package. \cls{} contains its own
+  version of that code, and the two conflict.
+\item Figures and tables in appendices are not listed in the List of Figures
+  or the List of Tables.
+\end{itemize}
+
+\section{License and changes}\label{sec:license}
+
+\subsection{License}
+
+This work may be distributed and/or modified under the conditions of the
+\LaTeX{} Project Public License, either version 1.3c of this license or (at
+your option) any later version.
+The latest version of this license is at
+\url{https://www.latex-project.org/lppl.txt}.
+
+\cls{} is a modified version of \file{urithesis.cls} version~2.0 (2016),
+copyright 2004--2016 University of Rhode Island, written by Timothy Toolan.
+Timothy Toolan does not support this modified version.
+Report problems to Kyle Monette at
+\url{https://github.com/kylemonette/thesis-template/issues}.
+The unmodified version~2.0 is available from
+\url{https://www.ele.uri.edu/info/thesis/dist/thesis.zip}
+and is archived at
+\url{https://web.archive.org/web/20260216180715/https://www.ele.uri.edu/info/thesis/dist/thesis.zip}.
+
+The Bib\TeX{} styles are distributed under their own licenses, which are
+stated in each file.
+\file{uriref.bst} and \file{uribib.bst} are based on \texttt{IEEEtran.bst} and
+\texttt{IEEEtranS.bst} by Michael Shell (Perl Artistic License), and
+\file{uriapa.bst} is based on \texttt{apalike.bst} by Oren Patashnik.
+
+\subsection{Changes from version 2.0}
+
+\paragraph{\file{urithesis.cls}}
+\begin{itemize}
+\item Requires a \LaTeX{} kernel from October 2020 or later.
+  Options are stored with \texttt{etoolbox} booleans instead of \cs{newif}.
+\item The default List of References is now one list after the last chapter
+  (\opt{oneref}). Version~2.0 put a list at the end of each chapter by
+  default; this is now the \opt{chapterref} option.
+\item New options \opt{bibliography} and \opt{nobibliography} control the
+  Bibliography. It is included by default in standard format and omitted by
+  default in manuscript format. Version~2.0 always included it, except with
+  \opt{simpleref} or \opt{nobib}.
+\item The \opt{standard} option now works. In version~2.0 it referred to an
+  undefined command.
+\item The class writes \file{genbib.sh}, a script with the full compile
+  sequence, in addition to \file{genbib.txt}. Its output files are opened with
+  \cs{newwrite} instead of fixed stream numbers.
+\item The redefinition of \cs{@include} uses the \LaTeX{} 2020 include hooks,
+  so packages such as \texttt{hyperref} work with \cs{newchapter}.
+\item The end-of-document code uses \cs{AtEndDocument} instead of redefining
+  \cs{enddocument}.
+\item The per-chapter counter reset list (\cs{cl@chapter}) is handled so that
+  packages such as \texttt{listings} that extend it do not break the class.
+\item The comments and option descriptions were rewritten, and the code was
+  reorganized. For a line-by-line record, compare this file with version~2.0.
+\end{itemize}
+
+\paragraph{\file{uriref.bst}, \file{uribib.bst}, \file{uriapa.bst}}
+Unchanged, except for a notice at the top of each file.
+
+\paragraph{Sample files}
+\file{thesis.tex}, \file{abstract.tex}, \file{chapter1.tex}, and
+\file{references.bib} were rewritten.
+\file{chapter2.tex}, \file{chapter3.tex}, \file{appendixA.tex},
+\file{acknowledgements.tex}, \file{dedication.tex}, and \file{preface.tex} are
+new.
+\file{thesisbib.tex} was removed; it is no longer needed.
+This document is new.
+
+\end{document}

@@ -1,22 +1,39 @@
 %% urithesis.cls
-%% Version 3.0 (June 2026)
-%% Copyright 2004, 2005, 2006, 2016, 2024, University of Rhode Island
-%% Original Author: Timothy Toolan, Department of Electrical Engineering
+%% Version 3.0 (2026/10/28)
 %%
-%% Modernized: 2026 by Kyle Monette, kylemonette.github.io
+%% Copyright 2004, 2005, 2006, 2016, University of Rhode Island
+%% Original author: Timothy Toolan, Department of Electrical Engineering
+%% Modifications copyright 2026 Kyle Monette, kylemonette.github.io
 %%
-%% See https://web.uri.edu/engineering/thesisguide/ for the original
-%% template and guide.
+%% MODIFIED VERSION.  This file is a modified version of urithesis.cls
+%% version 2.0 (2016) by Timothy Toolan.  The changes are listed in the
+%% section "Changes from version 2.0" of urithesis-doc.pdf (source:
+%% urithesis-doc.tex), which is distributed with this file.
+%%
+%% Timothy Toolan does not support this modified version.  Report
+%% problems with it to Kyle Monette at
+%%   https://github.com/kylemonette/thesis-template/issues
+%%
+%% The unmodified version 2.0 is available from
+%%   https://www.ele.uri.edu/info/thesis/dist/thesis.zip
+%% and is archived at
+%%   https://web.archive.org/web/20260216180715/https://www.ele.uri.edu/info/thesis/dist/thesis.zip
+%%
+%% Portions of the per-chapter reference code are derived from
+%% chapterbib.sty by Donald Arseneau.
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
 % of this license or (at your option) any later version.
 % The latest version of this license is in
-%   http://www.latex-project.org/lppl.txt
+%   https://www.latex-project.org/lppl.txt
 % and version 1.3 or later is part of all distributions of LaTeX
 % version 2005/12/01 or later.
 %
 % This work has the LPPL maintenance status `maintained'.
+%
+% This modified version is maintained by Kyle Monette.  The Current
+% Maintainer of the original work (version 2.0) is Timothy Toolan.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -112,7 +129,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{urithesis}[2026/06/29 v3.0 University of Rhode Island thesis format]
+\ProvidesClass{urithesis}[2026/10/28 v3.0 University of Rhode Island thesis format
+  (modified from v2.0 by T. Toolan)]
 
 %----------------------------------------------------------------------
 % Required packages loaded early so options can use them

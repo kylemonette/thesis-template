@@ -3,7 +3,9 @@
 %% Version 1.2 (2006/06/19)
 %% Created from IEEEtranS.bst by Timothy Toolan
 %%
-%% Modernized: 2026 by Kyle Monette, kylemonette.github.io
+%% Distributed with the modified urithesis bundle, 2026, by Kyle Monette
+%% (kylemonette.github.io).  The style code is unchanged from Timothy
+%% Toolan's version; only this notice was added.
 %%
 %% Used to create the alphabetically sorted bibliography for theses 
 %% and dissertations at the University of Rhode Island.  
