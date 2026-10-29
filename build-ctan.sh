@@ -13,7 +13,7 @@ latexmk -pdf -silent rhode-island-thesis
 
 rm -rf rhode-island-thesis rhode-island-thesis.zip
 mkdir rhode-island-thesis
-cp README.txt rhode-island-thesis.cls uriref.bst uribib.bst uriapa.bst \
+cp README.txt rhode-island-thesis.cls rhode-island-thesis-ref.bst rhode-island-thesis-bib.bst rhode-island-thesis-apa.bst \
    rhode-island-thesis-doc.tex rhode-island-thesis-doc.pdf \
    rhode-island-thesis.tex abstract.tex acknowledgements.tex dedication.tex preface.tex \
    chapter1.tex chapter2.tex chapter3.tex appendixA.tex references.bib \

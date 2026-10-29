@@ -53,8 +53,8 @@ See the comments at the top of `rhode-island-thesis.tex` and `rhode-island-thesi
 | File | Purpose |
 | --- | --- |
 | `rhode-island-thesis.cls` | The document class |
-| `uriref.bst`, `uriapa.bst` | BibTeX styles for the numeric and author–year reference lists |
-| `uribib.bst` | BibTeX style for the optional alphabetical bibliography |
+| `rhode-island-thesis-ref.bst`, `rhode-island-thesis-apa.bst` | BibTeX styles for the numeric and author–year reference lists |
+| `rhode-island-thesis-bib.bst` | BibTeX style for the optional alphabetical bibliography |
 | `rhode-island-thesis.tex` | Main file: options, metadata, and the list of chapters/appendices |
 | `abstract.tex`, `acknowledgements.tex`, `dedication.tex`, `preface.tex` | Preliminary-page content |
 | `chapter*.tex`, `appendixA.tex` | Sample chapters and appendix |

@@ -118,7 +118,7 @@
 %
 % Notes:
 %
-%   You will need uriref.bst, uribib.bst, and uriapa.bst for the
+%   You will need rhode-island-thesis-ref.bst, rhode-island-thesis-bib.bst, and rhode-island-thesis-apa.bst for the
 %   bibliography and reference lists.
 %
 %   The department on the title page defaults to "ELECTRICAL ENGINEERING"
@@ -225,12 +225,12 @@
 
 % APA citation formatting
 \ifbool{@wantapalike}{%
-  \def\@refbstfile{uriapa}%
+  \def\@refbstfile{rhode-island-thesis-apa}%
   \def\@cite#1#2{(#1\if@tempswa , #2\fi)}%
   \def\citepunct{; }%
   \def\@biblabel#1{}%
 }{%
-  \def\@refbstfile{uriref}%
+  \def\@refbstfile{rhode-island-thesis-ref}%
 }
 
 %----------------------------------------------------------------------
@@ -665,7 +665,7 @@
   \ifbool{@wantbiblio}{%
     \if@filesw
       \immediate\openout\@bibliowrite=\@bibliofile.aux
-      \immediate\write\@bibliowrite{\string\bibstyle{uribib}}%
+      \immediate\write\@bibliowrite{\string\bibstyle{rhode-island-thesis-bib}}%
       \immediate\write\@bibliowrite{\string\bibdata{\@reffile}}%
     \fi
   }{}%

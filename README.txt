@@ -15,4 +15,4 @@ Rhode Island. Timothy Toolan does not support this modified version; report prob
 changes are listed in rhode-island-thesis-doc.pdf. The unmodified version 2.0 is available from
 https://www.ele.uri.edu/info/thesis/dist/thesis.zip and is archived at
 https://web.archive.org/web/20260216180715/https://www.ele.uri.edu/info/thesis/dist/thesis.zip.
-The BibTeX styles uriref.bst, uribib.bst and uriapa.bst keep the licenses stated in each file.
+The BibTeX styles rhode-island-thesis-ref.bst, rhode-island-thesis-bib.bst and rhode-island-thesis-apa.bst keep the licenses stated in each file.

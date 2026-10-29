@@ -1,16 +1,16 @@
 %%
-%% uribib.bst 
+%% rhode-island-thesis-bib.bst 
 %% Version 1.2 (2006/06/19)
 %% Created from IEEEtranS.bst by Timothy Toolan
 %%
 %% Distributed with the rhode-island-thesis bundle, 2026, by Kyle Monette
 %% (kylemonette.github.io).  The style code is unchanged from Timothy
-%% Toolan's version; only the comments were changed.
+%% Toolan's version; only the file name and comments were changed.
 %%
 %% Used to create the alphabetically sorted bibliography for theses 
 %% and dissertations at the University of Rhode Island.  
 %%
-%% This is used by rhode-island-thesis.cls, and should be used with uriref.bst to 
+%% This is used by rhode-island-thesis.cls, and should be used with rhode-island-thesis-ref.bst to 
 %% create the references list, which is sorted in order of citation.
 %%
 %%**********************************************************************

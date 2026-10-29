@@ -91,9 +91,9 @@ The class loads \texttt{etoolbox}, \texttt{ifthen}, and \texttt{url}.
 \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.42\linewidth}X@{}}
 \toprule
 \file{rhode-island-thesis.cls} & The document class. \\
-\file{uriref.bst} & Bib\TeX{} style for the numbered List of References, like [1]. \\
-\file{uriapa.bst} & Bib\TeX{} style for author--year references, like (Toolan, 2006). \\
-\file{uribib.bst} & Bib\TeX{} style for the alphabetical Bibliography. \\
+\file{rhode-island-thesis-ref.bst} & Bib\TeX{} style for the numbered List of References, like [1]. \\
+\file{rhode-island-thesis-apa.bst} & Bib\TeX{} style for author--year references, like (Toolan, 2006). \\
+\file{rhode-island-thesis-bib.bst} & Bib\TeX{} style for the alphabetical Bibliography. \\
 \midrule
 \file{rhode-island-thesis.tex} & The main file of the sample thesis. Compile this file only. \\
 \file{abstract.tex}, \file{acknowledgements.tex}, \file{dedication.tex}, \file{preface.tex}
@@ -330,9 +330,9 @@ and is archived at
 
 The Bib\TeX{} styles are distributed under their own licenses, which are
 stated in each file.
-\file{uriref.bst} and \file{uribib.bst} are based on \texttt{IEEEtran.bst} and
+\file{rhode-island-thesis-ref.bst} and \file{rhode-island-thesis-bib.bst} are based on \texttt{IEEEtran.bst} and
 \texttt{IEEEtranS.bst} by Michael Shell (Perl Artistic License), and
-\file{uriapa.bst} is based on \texttt{apalike.bst} by Oren Patashnik.
+\file{rhode-island-thesis-apa.bst} is based on \texttt{apalike.bst} by Oren Patashnik.
 
 \subsection{Changes from version 2.0}
 
@@ -365,9 +365,10 @@ stated in each file.
   reorganized. For a line-by-line record, compare this file with version~2.0.
 \end{itemize}
 
-\paragraph{\file{uriref.bst}, \file{uribib.bst}, \file{uriapa.bst}}
-Unchanged, except for a notice at the top of each file and the class name in
-the comments.
+\paragraph{\file{rhode-island-thesis-ref.bst}, \file{rhode-island-thesis-bib.bst}, \file{rhode-island-thesis-apa.bst}}
+Renamed from \file{uriref.bst}, \file{uribib.bst}, and \file{uriapa.bst}.
+Unchanged otherwise, except for a notice at the top of each file and the class
+name in the comments.
 
 \paragraph{Sample files}
 \file{thesis.tex} was renamed \file{rhode-island-thesis.tex}.

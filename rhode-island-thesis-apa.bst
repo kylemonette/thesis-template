@@ -1,15 +1,15 @@
-%% uriapa.bst 
+%% rhode-island-thesis-apa.bst 
 %% Version 1.0 (2006/08/02)
 %% Created from apalike.bst by Timothy Toolan
 %%
 %% Distributed with the rhode-island-thesis bundle, 2026, by Kyle Monette
 %% (kylemonette.github.io).  The style code is unchanged from Timothy
-%% Toolan's version; only the comments were changed.
+%% Toolan's version; only the file name and comments were changed.
 %%
 %% Used to create the list of references, which is sorted in alphabetical
 %% order, and cited as (Toolan, 2006) instead of as [1].
 %%
-%% This is used by rhode-island-thesis.cls, and should be used with uribib.bst to 
+%% This is used by rhode-island-thesis.cls, and should be used with rhode-island-thesis-bib.bst to 
 %% create the bibliography.
 %%
 %%**********************************************************************
