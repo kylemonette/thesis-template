@@ -10,7 +10,7 @@
 %% Used to create the list of references, which is sorted in order of 
 %% citation, for theses and dissertations at the University of Rhode Island.  
 %%
-%% This is used by urithesis.cls, and should be used with uribib.bst to 
+%% This is used by rhode-island-thesis.cls, and should be used with uribib.bst to 
 %% create the bibliography.
 %%
 %%**********************************************************************

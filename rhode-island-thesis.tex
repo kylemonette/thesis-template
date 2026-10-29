@@ -1,4 +1,4 @@
-%% thesis.tex — University of Rhode Island Thesis Template
+%% rhode-island-thesis.tex — University of Rhode Island Thesis Template
 %%
 %% -------------------------------------------------------------------------
 %% COMPILE SEQUENCE
@@ -6,19 +6,19 @@
 %%
 %% OVERLEAF OR LATEXMK (recommended) — nothing extra to do:
 %%
-%%   Overleaf, and `latexmk -pdf thesis` on your own machine, find every
+%%   Overleaf, and `latexmk -pdf rhode-island-thesis` on your own machine, find every
 %%   .aux file that needs BibTeX (including the per-chapter ones and
-%%   thesisbib.aux) and rerun pdflatex as needed, in every mode.
+%%   rhode-island-thesisbib.aux) and rerun pdflatex as needed, in every mode.
 %%   genbib.sh is NOT needed.
 %%
 %% MANUAL COMMAND LINE (offline, without latexmk):
 %%
-%%   pdflatex thesis
+%%   pdflatex rhode-island-thesis
 %%   sh genbib.sh
 %%
 %%   The class writes genbib.sh on every pdflatex run.  It runs bibtex on
-%%   each .aux file that needs it (thesis.aux for oneref, one per chapter
-%%   for chapterref, plus thesisbib.aux for the bibliography), then runs
+%%   each .aux file that needs it (rhode-island-thesis.aux for oneref, one per chapter
+%%   for chapterref, plus rhode-island-thesisbib.aux with [bibliography]), then runs
 %%   pdflatex twice more.  genbib.txt lists only the bibtex commands, for
 %%   systems without sh (e.g. Windows).  If genbib.sh does not yet exist
 %%   (very first run), run pdflatex first.
@@ -26,7 +26,7 @@
 %% -------------------------------------------------------------------------
 %% QUICK DRAFT (skip bibliography machinery while writing):
 %%
-%%   Use the [nobib] option:  \documentclass[nobib,...]{urithesis}
+%%   Use the [nobib] option:  \documentclass[nobib,...]{rhode-island-thesis}
 %%
 %% -------------------------------------------------------------------------
 %% CLASS OPTIONS — choose what applies to your thesis
@@ -46,12 +46,12 @@
 %%                Default: on for standard (required by the Graduate School),
 %%                off for manuscript.  Use \nocite{*} to list works consulted.
 %%  Drafting:     draft | draftbox | simpleref | noprelim | nobib
-%%                (see the header of urithesis.cls; not for final submission)
+%%                (see the header of rhode-island-thesis.cls; not for final submission)
 %%
 %% Example for a PhD dissertation with four committee members:
-%%   \documentclass[phd,4committee,topnum]{urithesis}
+%%   \documentclass[phd,4committee,topnum]{rhode-island-thesis}
 
-\documentclass[phd,12pt,3committee,oneref,standard]{urithesis}
+\documentclass[phd,12pt,3committee,chapterref,manuscript]{rhode-island-thesis}
 
 % -------------------------------------------------------------------------
 % Packages — add your own here

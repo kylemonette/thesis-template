@@ -9,7 +9,7 @@
 %% Used to create the list of references, which is sorted in alphabetical
 %% order, and cited as (Toolan, 2006) instead of as [1].
 %%
-%% This is used by urithesis.cls, and should be used with uribib.bst to 
+%% This is used by rhode-island-thesis.cls, and should be used with uribib.bst to 
 %% create the bibliography.
 %%
 %%**********************************************************************
