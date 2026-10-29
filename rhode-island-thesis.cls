@@ -1,5 +1,4 @@
 %% rhode-island-thesis.cls
-%% Version 3.0 (June 2026)
 %% Copyright 2004, 2005, 2006, 2016, 2024, University of Rhode Island
 %% Original Author: Timothy Toolan, Department of Electrical Engineering
 %%
@@ -131,7 +130,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{rhode-island-thesis}[2026/10/29 v3.0 University of Rhode Island thesis format]
+\ProvidesClass{rhode-island-thesis}[2026/10/29 v3.1 University of Rhode Island thesis format]
 
 %----------------------------------------------------------------------
 % Required packages loaded early so options can use them

@@ -2,7 +2,7 @@ Author: Kyle Monette
 Contact: kylemonette309@gmail.com
 GitHub: https://github.com/kylemonette/thesis-template
 License: LPPL 1.3c
-Version: 3.0
+Version: 3.1
 
 This class produces theses and dissertations that follow the formatting guidelines of the Graduate School at
 the University of Rhode Island. It generates the title page, approval page, table of contents, and lists of
