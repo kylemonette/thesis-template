@@ -1,4 +1,4 @@
-% urithesis-doc.tex --- documentation for urithesis.cls
+% rhode-island-thesis-doc.tex --- documentation for rhode-island-thesis.cls
 %
 % Copyright 2026 Kyle Monette
 %
@@ -20,14 +20,14 @@
 \hypersetup{colorlinks=true}
 \setlength{\emergencystretch}{3em}
 
-\newcommand\cls{\texttt{urithesis}}
+\newcommand\cls{\texttt{rhode-island-thesis}}
 \newcommand\cs[1]{\texttt{\char`\\#1}}
 \newcommand\meta[1]{\textit{$\langle$#1$\rangle$}}
 \newcommand\marg[1]{\texttt{\{}\meta{#1}\texttt{\}}}
 \newcommand\opt[1]{\texttt{#1}}
 \newcommand\file[1]{\texttt{#1}}
 
-\title{\texttt{urithesis.cls}\\[0.5ex]
+\title{\texttt{rhode-island-thesis.cls}\\[0.5ex]
   \large Theses and dissertations at the University of Rhode Island}
 \author{Kyle Monette (\href{https://kylemonette.github.io}{kylemonette.github.io}) \\
   \small Based on version 2.0 by Timothy Toolan \\
@@ -49,11 +49,11 @@ It also produces the List of References and the Bibliography from a Bib\TeX{}
 database.
 
 The package includes a sample thesis that compiles as-is.
-Most students only need to edit it: fill in the details in \file{thesis.tex},
+Most students only need to edit it: fill in the details in \file{rhode-island-thesis.tex},
 write chapters in \file{chapter1.tex}, \file{chapter2.tex}, and so on, and add
 sources to \file{references.bib}.
 
-This is a modified version of \cls{} version~2.0 by Timothy Toolan.
+This is a modified version of \file{urithesis.cls} version~2.0 by Timothy Toolan.
 See Section~\ref{sec:license} for the license and the list of changes.
 
 \tableofcontents
@@ -62,16 +62,16 @@ See Section~\ref{sec:license} for the license and the list of changes.
 
 \begin{enumerate}
 \item Download the package and unzip it.
-\item Compile \file{thesis.tex}:
+\item Compile \file{rhode-island-thesis.tex}:
   \begin{itemize}
   \item \textbf{Overleaf:} create a new project with \emph{New Project
     $\to$ Upload Project}, choose the zip file, and click \emph{Recompile}.
-  \item \textbf{On your computer:} run \verb|latexmk -pdf thesis|, or run
-    \verb|pdflatex thesis| followed by \verb|sh genbib.sh|
+  \item \textbf{On your computer:} run \verb|latexmk -pdf rhode-island-thesis|, or run
+    \verb|pdflatex rhode-island-thesis| followed by \verb|sh genbib.sh|
     (see Section~\ref{sec:compile}).
   \end{itemize}
-\item Check that the result matches the sample \file{thesis.pdf}.
-\item Edit \file{thesis.tex}: choose the class options
+\item Check that the result matches the sample \file{rhode-island-thesis.pdf}.
+\item Edit \file{rhode-island-thesis.tex}: choose the class options
   (Section~\ref{sec:options}) and fill in the title, author, committee, and
   front matter (Section~\ref{sec:setup}).
 \item Write your chapters and add your sources to \file{references.bib}.
@@ -90,35 +90,35 @@ The class loads \texttt{etoolbox}, \texttt{ifthen}, and \texttt{url}.
 \noindent
 \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.42\linewidth}X@{}}
 \toprule
-\file{urithesis.cls} & The document class. \\
+\file{rhode-island-thesis.cls} & The document class. \\
 \file{uriref.bst} & Bib\TeX{} style for the numbered List of References, like [1]. \\
 \file{uriapa.bst} & Bib\TeX{} style for author--year references, like (Toolan, 2006). \\
 \file{uribib.bst} & Bib\TeX{} style for the alphabetical Bibliography. \\
 \midrule
-\file{thesis.tex} & The main file of the sample thesis. Compile this file only. \\
+\file{rhode-island-thesis.tex} & The main file of the sample thesis. Compile this file only. \\
 \file{abstract.tex}, \file{acknowledgements.tex}, \file{dedication.tex}, \file{preface.tex}
   & Front matter of the sample thesis. \\
 \file{chapter1.tex}--\file{chapter3.tex}, \file{appendixA.tex}
   & Sample chapters and appendix, with examples of figures, tables,
     equations, and citations. \\
 \file{references.bib} & Sample Bib\TeX{} database. \\
-\file{thesis.pdf} & The compiled sample thesis. \\
-\file{urithesis-doc.tex}, \file{urithesis-doc.pdf} & This document. \\
+\file{rhode-island-thesis.pdf} & The compiled sample thesis. \\
+\file{rhode-island-thesis-doc.tex}, \file{rhode-island-thesis-doc.pdf} & This document. \\
 \bottomrule
 \end{tabularx}
 
 \medskip
 \noindent Keep the class and \file{.bst} files in the same folder as
-\file{thesis.tex}, unless your \TeX{} distribution already includes \cls.
+\file{rhode-island-thesis.tex}, unless your \TeX{} distribution already includes \cls.
 
 \section{Class options}\label{sec:options}
 
-Options go in the \cs{documentclass} line of \file{thesis.tex}, separated by
+Options go in the \cs{documentclass} line of \file{rhode-island-thesis.tex}, separated by
 commas.
 For example, a PhD dissertation with four committee members and page numbers
 at the top right is written as
 \begin{verbatim}
-\documentclass[phd,4committee,topnum]{urithesis}
+\documentclass[phd,4committee,topnum]{rhode-island-thesis}
 \end{verbatim}
 
 \subsection{General options}
@@ -180,11 +180,11 @@ Remove them before submitting your thesis.
 \noindent To compile only the chapter you are working on, combine
 \opt{noprelim} and \opt{nobib} with \LaTeX's \cs{includeonly} command.
 
-\section{Setting up \texttt{thesis.tex}}\label{sec:setup}
+\section{Setting up \texttt{rhode-island-thesis.tex}}\label{sec:setup}
 
 \subsection{Title page and approval page}
 
-These commands go in the preamble of \file{thesis.tex}.
+These commands go in the preamble of \file{rhode-island-thesis.tex}.
 
 \medskip
 \noindent
@@ -241,7 +241,7 @@ After \verb|\begin{document}|, include each chapter with
 \end{verbatim}
 Each chapter or appendix file starts with \cs{chapter}\marg{title}.
 Chapters are numbered 1, 2, \ldots{} and appendices A, B, \ldots.
-Do not put \cs{chapter} directly in \file{thesis.tex}.
+Do not put \cs{chapter} directly in \file{rhode-island-thesis.tex}.
 
 \section{References and the Bibliography}
 
@@ -284,13 +284,13 @@ How you compile depends on your setup.
 \begin{description}
 \item[Overleaf.] Click \emph{Recompile}. Overleaf runs Bib\TeX{} on every list
   automatically.
-\item[latexmk.] Run \verb|latexmk -pdf thesis|. It runs pdf\LaTeX{} and
+\item[latexmk.] Run \verb|latexmk -pdf rhode-island-thesis|. It runs pdf\LaTeX{} and
   Bib\TeX{} as many times as needed. Many editors can use latexmk.
-\item[By hand.] Run \verb|pdflatex thesis| once, then \verb|sh genbib.sh|.
+\item[By hand.] Run \verb|pdflatex rhode-island-thesis| once, then \verb|sh genbib.sh|.
   On every run, \cls{} writes the script \file{genbib.sh}, which runs Bib\TeX{}
   on each list and then pdf\LaTeX{} twice more. It also writes
   \file{genbib.txt}, which lists only the Bib\TeX{} commands, for systems
-  without \texttt{sh}. Run these commands, then run \verb|pdflatex thesis|
+  without \texttt{sh}. Run these commands, then run \verb|pdflatex rhode-island-thesis|
   twice.
 \end{description}
 
@@ -336,8 +336,11 @@ stated in each file.
 
 \subsection{Changes from version 2.0}
 
-\paragraph{\file{urithesis.cls}}
+\paragraph{\file{rhode-island-thesis.cls}}
 \begin{itemize}
+\item The class was renamed from \file{urithesis.cls} to
+  \file{rhode-island-thesis.cls}. Load it with
+  \verb|\documentclass{rhode-island-thesis}|.
 \item Requires a \LaTeX{} kernel from October 2020 or later.
   Options are stored with \texttt{etoolbox} booleans instead of \cs{newif}.
 \item The default List of References is now one list after the last chapter
@@ -363,10 +366,12 @@ stated in each file.
 \end{itemize}
 
 \paragraph{\file{uriref.bst}, \file{uribib.bst}, \file{uriapa.bst}}
-Unchanged, except for a notice at the top of each file.
+Unchanged, except for a notice at the top of each file and the class name in
+the comments.
 
 \paragraph{Sample files}
-\file{thesis.tex}, \file{abstract.tex}, \file{chapter1.tex}, and
+\file{thesis.tex} was renamed \file{rhode-island-thesis.tex}.
+It, \file{abstract.tex}, \file{chapter1.tex}, and
 \file{references.bib} were rewritten.
 \file{chapter2.tex}, \file{chapter3.tex}, \file{appendixA.tex},
 \file{acknowledgements.tex}, \file{dedication.tex}, and \file{preface.tex} are

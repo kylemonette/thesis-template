@@ -2,9 +2,9 @@
 %% Version 1.0 (2006/08/02)
 %% Created from apalike.bst by Timothy Toolan
 %%
-%% Distributed with the modified urithesis bundle, 2026, by Kyle Monette
+%% Distributed with the rhode-island-thesis bundle, 2026, by Kyle Monette
 %% (kylemonette.github.io).  The style code is unchanged from Timothy
-%% Toolan's version; only this notice was added.
+%% Toolan's version; only the comments were changed.
 %%
 %% Used to create the list of references, which is sorted in alphabetical
 %% order, and cited as (Toolan, 2006) instead of as [1].

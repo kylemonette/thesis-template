@@ -9,8 +9,8 @@
 %%
 %% MODIFIED VERSION.  This file is a modified version of urithesis.cls
 %% version 2.0 (2016) by Timothy Toolan.  The changes are listed in the
-%% section "Changes from version 2.0" of urithesis-doc.pdf (source:
-%% urithesis-doc.tex), which is distributed with this file.
+%% section "Changes from version 2.0" of rhode-island-thesis-doc.pdf (source:
+%% rhode-island-thesis-doc.tex), which is distributed with this file.
 %%
 %% Timothy Toolan does not support this modified version.  Report
 %% problems with it to Kyle Monette at

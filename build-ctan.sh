@@ -1,27 +1,27 @@
 #!/bin/sh
-# build-ctan.sh --- build urithesis.zip for upload to CTAN.
+# build-ctan.sh --- build rhode-island-thesis.zip for upload to CTAN.
 #
 # Compiles the documentation and the sample thesis, then copies the
-# package files (and nothing else) into urithesis/ and zips it.
+# package files (and nothing else) into rhode-island-thesis/ and zips it.
 # Generated files such as genbib.sh, genbib.txt, and .aux files, and
 # macOS .DS_Store files, are left out, as CTAN requires.
 
 set -e
 
-latexmk -pdf -silent urithesis-doc
-latexmk -pdf -silent thesis
+latexmk -pdf -silent rhode-island-thesis-doc
+latexmk -pdf -silent rhode-island-thesis
 
-rm -rf urithesis urithesis.zip
-mkdir urithesis
-cp README.txt urithesis.cls uriref.bst uribib.bst uriapa.bst \
-   urithesis-doc.tex urithesis-doc.pdf \
-   thesis.tex abstract.tex acknowledgements.tex dedication.tex preface.tex \
+rm -rf rhode-island-thesis rhode-island-thesis.zip
+mkdir rhode-island-thesis
+cp README.txt rhode-island-thesis.cls uriref.bst uribib.bst uriapa.bst \
+   rhode-island-thesis-doc.tex rhode-island-thesis-doc.pdf \
+   rhode-island-thesis.tex abstract.tex acknowledgements.tex dedication.tex preface.tex \
    chapter1.tex chapter2.tex chapter3.tex appendixA.tex references.bib \
-   thesis.pdf \
-   urithesis/
+   rhode-island-thesis.pdf \
+   rhode-island-thesis/
 # macOS Finder can create .DS_Store files, which CTAN does not accept.
-find urithesis -name .DS_Store -delete
-zip -r -q urithesis.zip urithesis -x '*.DS_Store'
-rm -rf urithesis
+find rhode-island-thesis -name .DS_Store -delete
+zip -r -q rhode-island-thesis.zip rhode-island-thesis -x '*.DS_Store'
+rm -rf rhode-island-thesis
 
-echo "Created urithesis.zip"
+echo "Created rhode-island-thesis.zip"

@@ -8,7 +8,7 @@
 
 This repository is a modern upgrade to the URI graduate school LaTeX thesis template, `urithesis.cls` version 2.0 by Timothy Toolan. It is a modified version of that work; see [License](#license) below.
 
-The documentation is in [`urithesis-doc.pdf`](urithesis-doc.pdf).
+The documentation is in [`rhode-island-thesis-doc.pdf`](rhode-island-thesis-doc.pdf).
 
 Major changes include:
 

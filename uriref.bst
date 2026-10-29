@@ -3,9 +3,9 @@
 %% Version 1.2 (2006/06/19)
 %% Created from IEEEtran.bst by Timothy Toolan
 %%
-%% Distributed with the modified urithesis bundle, 2026, by Kyle Monette
+%% Distributed with the rhode-island-thesis bundle, 2026, by Kyle Monette
 %% (kylemonette.github.io).  The style code is unchanged from Timothy
-%% Toolan's version; only this notice was added.
+%% Toolan's version; only the comments were changed.
 %%
 %% Used to create the list of references, which is sorted in order of 
 %% citation, for theses and dissertations at the University of Rhode Island.  
